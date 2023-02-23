@@ -8,7 +8,7 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 
-<rfc
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude"
   category="std"
   docName="draft-spaghetti-sidrops-aspa-slurm-00"
   updates="8416"
@@ -58,7 +58,7 @@
 
     <t>
       ISPs may want to establish a local view of exceptions to the Resource Public Key Infrastructure (RPKI) data in the form of local filters and additions.
-      This document defines an addendum to RFC 8416 by specifying a format for local filters and local attestations for Autonomous System Provider Authorizations (ASPA).
+      This document defines an addendum to RFC 8416 by specifying a format for local filters and local assertions for Autonomous System Provider Authorizations (ASPA) for use with the RPKI.
     </t>
 
   </abstract>
@@ -77,14 +77,17 @@
 
     <t>
       ISPs may want to establish a local view of exceptions to the Resource Public Key Infrastructure (RPKI) data in the form of local filters and additions.
-      This document defines an addendum to RFC 8416 by specifying a format for local filters and local attestations for Autonomous System Provider Authorizations (ASPA).
+      This document defines an addendum to RFC 8416 by specifying a format for local filters and local assertions for Autonomous System Provider Authorizations (ASPA) for use with the RPKI.
     </t>
 
+    <t>
+      See <xref target="RFC8416"/> for an overview of the SLURM mechanism, specifically Section 3 and Section 4.
+    </t>
   </section>
 
   <section title="SLURM v2 File Overview">
     <t>
-      A SLURM file consists of a single JSON object containing the following members:
+      A SLURM file consists of a single JSON <xref target="RFC8259"/> object containing the following members:
     </t>
     <ul>
       <li>A "slurmVersion" member that MUST be set to 2, encoded as a number</li>
@@ -136,15 +139,72 @@
     <section title="Validated ASPA Filters" anchor="aspaFilters">
       <t>
         The RP can configure zero or more Validated ASPA Filters ("ASPA Filters" for short.
-        Each ASPA Filter can contain a single 'customer_asid' and optionally a single 'comment'.
-        The 'customer_asid' member has as value a number.
-        It is RECOMMENDED that an explanatory comment is included with each ASPA Filter so that it can be shown to users of the RP software.
+        Each ASPA Filter contains a single 'customer_asid', a single 'afi',  and optionally a single 'comment'.
       </t>
+      <ul>
+        <li>The 'customer_asid' member has as value a number.</li>
+        <li>The 'afi' member has as value a string which is either "ipv4" or "ipv6".</li>
+        <li>It is RECOMMENDED that an explanatory comment is included with each ASPA Filter so that it can be shown to users of the RP software.</li>
+      </ul>
+      <t>
+        Any Validated ASPA Payload (VAP) <xref target="I-D.ietf-sidrops-aspa-profile"/> that matches any configured ASPA Filter MUST be removed from the RP's output.
+      </t>
+      <t>
+        A VAP is considered to match with an ASPA Filter if the following condition applies:
+      </t>
+      <ol>
+        <li>The VAP is considered to match if the VAP Customer ASID is equal to the ASPA Filter Customer ASID.</li>
+      </ol>
+      <t>
+        The following example JSON structure represents a "aspaFilters" member with one object as described above:
+      </t>
+      <figure><artwork>
+<![CDATA[
+"aspaFilter": [
+  {
+    "customer_asid": 64496,
+    "afi": "ipv6",
+    "comment": "Ignore ASPA(s) that have 64496 as Customer ASID"
+  }
+]
+]]>
+      </artwork></figure>
+
     </section>
 
     <section title="Locally Added ASPA Assertions" anchor="aspaAssertions">
       <t>
-        ...
+        Each RP is locally configured with a (possibly empty) array of ASPA Assertions.
+        Each ASPA Assertion MUST contain an Customer ASID and (possibly empty) 'provider_set' array of numbers.
+        It is RECOMMENDED that an explanatory comment is also included so that it can be shown to users of the RP software.
+      </t>
+      <t>
+        The above is expressed as a value of the "aspaAssertions" member, as an array of zero or more objects.
+        Each object MUST contain one each of all of the following members:
+      </t>
+      <ul>
+        <li>An "customer_asid" member whose value is a number.</li>
+        <li>An "afi" member whose value is a string, whose content is either "ipv4" or "ipv6".</li>
+        <li>A "provider_set" member whose value is an array of numbers.</li>
+      </ul>
+      <t>
+        The following example JSON structure represents a "aspaAssertions" member with one object as described above:
+      </t>
+      <figure><artwork>
+<![CDATA[
+"aspaAssertions": [
+  {
+    "customer_asid": 64496,
+    "afi": "ipv6",
+    "provider_set": [64497, 64498],
+    "comment": "pretend 64497 are 64498 are providers to 64496 for IPv6 routes"
+  }
+]
+]]>
+      </artwork></figure>
+      <t>
+        Note that a "aspaAssertions" member matches the syntax of the Router Key PDU described in Section 5.12 of <xref target="I-D.ietf-sidrops-8210bis"/>.
+        Relying Parties MUST add any "aspaAssertions" member thus found to the set of Router Key PDUs, excluding duplicates, when using version 2 of the RPKI-Router protocol <xref target="I-D.ietf-sidrops-8210bis"/>.
       </t>
     </section>
 
@@ -190,6 +250,7 @@
     "aspaFilters": [
       {
         "customer_asid": 64496,
+        "afi": "ipv6",
         "comment": "ASPAs matching Customer ASID"
       }
     ]
@@ -219,8 +280,9 @@
     "aspaAssertions": [
       {
         "customer_asid": 64496,
+        "afi": "ipv6",
         "provider_set": [64497, 64498],
-        "comment": "Pretend 64497 and 64498 are upstream for 64496"
+        "comment": "Pretend 64497 and 64498 are upstream for 64496 in the IPv6 AFI"
       }
     ]
   }
@@ -230,9 +292,8 @@
   </section>
 
   <section title="Security Considerations">
-
     <t>
-      ...
+      For Security Considerations see Section 6 of <xref target="RFC8416"/>.
     </t>
   </section>
 
@@ -257,8 +318,10 @@
   <references title="Normative References">
     <?rfc include="reference.RFC.2119.xml"?>
     <?rfc include="reference.RFC.8174.xml"?>
+    <?rfc include="reference.RFC.8259.xml"?>
     <?rfc include="reference.RFC.8416.xml"?>
- 
+    <?rfc include="reference.I-D.ietf-sidrops-aspa-profile.xml"?>
+    <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-sidrops-8210bis.xml"/>
   </references>
 
   <references title="Informative References">
