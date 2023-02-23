@@ -83,6 +83,54 @@
 
   </section>
 
+  <section title="SLURM v2 File Overview">
+    <t>
+      A SLURM file consists of a single JSON object containing the following members:
+    </t>
+    <ul>
+      <li>A "slurmVersion" member that MUST be set to 2, encoded as a number</li>
+      <li>
+        A "validationOutputFilters" member (Section XXX), whose value is an object.
+        The object MUST contain exactly three members:
+        <ul>
+          <li>A "prefixFilters" member</li>
+          <li>A "bgpsecFilters" member</li>
+          <li>A "aspaFilters" member</li>
+        </ul>
+      </li>
+      <li>
+        A "locallyAddedAssertions" member (Section XXX), whose value is an object.
+        The object MUST contain exactly three members:
+        <ul>
+          <li>A "prefixAssertions" member</li>
+          <li>A "bgpsecAssertions" member</li>
+          <li>A "aspaAssertions" member</li>
+        </ul>
+      </li>
+    </ul>
+    <t>
+      The following JSON structure with JSON members represents a SLURM file that has no filters or assertions:
+    </t>
+
+    <figure><artwork>
+<![CDATA[
+{
+  "slurmVersion": 2,
+  "validationOutputFilters": {
+    "aspaFilters": [],
+    "bgpsecFilters": [],
+    "prefixFilters": []
+  },
+  "locallyAddedAssertions": {
+    "aspaAssertions": [],
+    "bgpsecAssertions": [],
+    "prefixAssertions": []
+  }
+}
+]]>
+    </artwork></figure>
+  </section>
+
   <section title="Validation Output Filters for ASPA">
     <t>
       ...
@@ -97,11 +145,12 @@
       <t>
       </t>
     </section>
+
   </section>
 
   <section title="Example of a SLURM file with ASPA Filters and Assertions">
 
-<figure><artwork>
+    <figure><artwork>
 <![CDATA[
 {
   "slurmVersion": 2,
@@ -175,8 +224,8 @@
   }
 }
 ]]>
-</artwork></figure>
-</section>
+    </artwork></figure>
+  </section>
 
   <section title="Security Considerations">
 
