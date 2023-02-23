@@ -47,13 +47,12 @@
   </author>
   <date />
 
-  <area>Routing</area>
-  <workgroup>IDR</workgroup>
-  <keyword>BGP</keyword>
-  <keyword>session</keyword>
-  <keyword>TCP</keyword>
+  <area>RPKI</area>
+  <workgroup>SIDROPS</workgroup>
+  <keyword>BGPsec</keyword>
+  <keyword>ASPA</keyword>
+  <keyword>RPKI-ROV</keyword>
   <keyword>EBGP</keyword>
-
 
   <abstract>
 
@@ -90,24 +89,25 @@
     <ul>
       <li>A "slurmVersion" member that MUST be set to 2, encoded as a number</li>
       <li>
-        A "validationOutputFilters" member (Section XXX), whose value is an object.
+        A "validationOutputFilters" member whose value is an object.
         The object MUST contain exactly three members:
         <ul>
-          <li>A "prefixFilters" member</li>
-          <li>A "bgpsecFilters" member</li>
-          <li>A "aspaFilters" member</li>
+          <li>A "prefixFilters" member, see Section 3.3.1 <xref target="RFC8416"/></li>
+          <li>A "bgpsecFilters" member, see section 3.3.2 <xref target="RFC8416"/></li>
+          <li>A "aspaFilters" member, see <xref target="aspaFilters"/></li>
         </ul>
       </li>
       <li>
-        A "locallyAddedAssertions" member (Section XXX), whose value is an object.
+        A "locallyAddedAssertions" member whose value is an object.
         The object MUST contain exactly three members:
         <ul>
-          <li>A "prefixAssertions" member</li>
-          <li>A "bgpsecAssertions" member</li>
-          <li>A "aspaAssertions" member</li>
+          <li>A "prefixAssertions" member, see Section 3.4.1 <xref target="RFC8416"/></li>
+          <li>A "bgpsecAssertions" member, see Section 3.4.2 <xref target="RFC8416"/></li>
+          <li>A "aspaAssertions" member, see <xref target="aspaAssertions"/></li>
         </ul>
       </li>
     </ul>
+
     <t>
       The following JSON structure with JSON members represents a SLURM file that has no filters or assertions:
     </t>
@@ -136,13 +136,15 @@
       ...
     </t>
 
-    <section title="ASPA Assertion Filters">
+    <section title="ASPA Assertion Filters" anchor="aspaFilters">
       <t>
+        ...
       </t>
     </section>
 
-    <section title="ASPA Assertions">
+    <section title="ASPA Assertions" anchor="aspaAssertions">
       <t>
+        ...
       </t>
     </section>
 
@@ -254,9 +256,8 @@
 
   <references title="Normative References">
     <?rfc include="reference.RFC.2119.xml"?>
-    <?rfc include="reference.RFC.4271.xml"?>
-    <?rfc include="reference.RFC.4273.xml"?>
     <?rfc include="reference.RFC.8174.xml"?>
+    <?rfc include="reference.RFC.8416.xml"?>
     
   </references>
 
