@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?rfc sortrefs="yes"?>
+<?rfc subcompact="no"?>
+<?rfc symrefs="yes"?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="3"?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+
+<rfc
+  category="std"
+  docName="draft-spaghetti-sidrops-aspa-slurm-00"
+  updates="8416"
+  ipr="trust200902"
+  submissionType="IETF"
+  consensus="true">
+
+<front>
+
+  <title abbrev="SLURM for RPKI ASPA">Simplified Local Internet Number Resource Management (SLURM) with RPKI Autonomous System Provider Authorizations (ASPA)</title>
+
+  <author fullname="Job Snijders" initials="J." surname="Snijders">
+    <organization>Fastly</organization>
+    <address>
+      <postal>
+        <street />
+        <city>Amsterdam</city>
+        <code />
+        <country>Netherlands</country>
+      </postal>
+      <email>job@fastly.com</email>
+    </address>
+  </author>
+
+  <author fullname="Ben Cartwright-Cox" initials="B." surname="Cartwright-Cox">
+    <organization>Port 179 Ltd</organization>
+    <address>
+      <postal>
+        <street />
+        <city>London</city>
+        <code />
+        <country>United Kingdom</country>
+      </postal>
+      <email>ben@benjojo.co.uk</email>
+    </address>
+  </author>
+  <date />
+
+  <area>Routing</area>
+  <workgroup>IDR</workgroup>
+  <keyword>BGP</keyword>
+  <keyword>session</keyword>
+  <keyword>TCP</keyword>
+  <keyword>EBGP</keyword>
+
+
+  <abstract>
+
+    <t>
+      ISPs may want to establish a local view of exceptions to the Resource Public Key Infrastructure (RPKI) data in the form of local filters and additions.
+      This document defines an addendum to RFC 8416 by specifying a format for local filters and local attestations for Autonomous System Provider Authorizations (ASPA).
+    </t>
+
+  </abstract>
+
+  <note title="Requirements Language">
+      <t>
+        The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when, they appear in all capitals, as shown here.
+      </t>
+  </note>
+
+</front>
+
+<middle>
+ 
+  <section title="Introduction">
+
+    <t>
+      ISPs may want to establish a local view of exceptions to the Resource Public Key Infrastructure (RPKI) data in the form of local filters and additions.
+      This document defines an addendum to RFC 8416 by specifying a format for local filters and local attestations for Autonomous System Provider Authorizations (ASPA).
+    </t>
+
+  </section>
+
+  <section title="Validation Output Filters for ASPA">
+    <t>
+      ...
+    </t>
+
+    <section title="ASPA Assertion Filters">
+      <t>
+      </t>
+    </section>
+
+    <section title="ASPA Assertions">
+      <t>
+      </t>
+    </section>
+  </section>
+
+  <section title="Example of a SLURM file with ASPA Filters and Assertions">
+
+<figure><artwork>
+<![CDATA[
+{
+  "slurmVersion": 2,
+  "validationOutputFilters": {
+    "prefixFilters": [
+      {
+        "prefix": "192.0.2.0/24",
+        "comment": "All VRPs encompassed by prefix"
+      },
+      {
+        "asn": 64496,
+        "comment": "All VRPs matching ASN"
+      },
+      {
+        "prefix": "198.51.100.0/24",
+        "asn": 64497,
+        "comment": "All VRPs encompassed by prefix, matching ASN"
+      }
+    ],
+    "bgpsecFilters": [
+      {
+        "asn": 64496,
+        "comment": "All keys for ASN"
+      },
+      {
+        "SKI": "voibVdC3Nzl9dcSfSFuFj6mK0R8=",
+        "comment": "Key matching Router SKI"
+      },
+      {
+        "asn": 64497,
+        "SKI": "UQ9IXSminbe1FfnEePjtPLeqfSM=",
+        "comment": "Key for ASN 64497 matching Router SKI"
+      }
+    ],
+    "aspaFilters": [
+      {
+        "customer_asid": 64496,
+        "comment": "ASPAs matching Customer ASID"
+      }
+    ]
+  },
+  "locallyAddedAssertions": {
+    "prefixAssertions": [
+      {
+        "asn": 64496,
+        "prefix": "198.51.100.0/24",
+        "comment": "My other important route"
+      },
+      {
+        "asn": 64496,
+        "prefix": "2001:db8::/32",
+        "maxPrefixLength": 48,
+        "comment": "My other important de-aggregated routes"
+      }
+    ],
+    "bgpsecAssertions": [
+      {
+        "asn": 64496,
+        "comment" : "My known key for my important ASN",
+        "SKI": "XUJQ4tgdREjYop786R0p/wdeyeI=",
+        "routerPublicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEgFcjQ/g//LAQerAH2Mpp+GucoDAGBbhIqD33wNPsXxnAGb+mtZ7XQrVO9DQ6UlAShtig5+QfEKpTtFgiqfiAFQ=="
+      }
+    ],
+    "aspaAssertions": [
+      {
+        "customer_asid": 64496,
+        "provider_set": [64497, 64498],
+        "comment": "Pretend 64497 and 64498 are upstream for 64496"
+      }
+    ]
+  }
+}
+]]>
+</artwork></figure>
+</section>
+
+  <section title="Security Considerations">
+
+    <t>
+      ...
+    </t>
+  </section>
+
+  <section title="IANA Considerations">
+    <t>
+      This document has no IANA actions.
+    </t>
+  </section>
+
+  <section title="Acknowledgements">
+    <t>
+      The authors would like to thank
+      TBD
+      for their helpful review of this document.
+    </t>
+  </section>
+
+</middle>
+
+<back>
+
+  <references title="Normative References">
+    <?rfc include="reference.RFC.2119.xml"?>
+    <?rfc include="reference.RFC.4271.xml"?>
+    <?rfc include="reference.RFC.4273.xml"?>
+    <?rfc include="reference.RFC.8174.xml"?>
+    
+  </references>
+
+  <references title="Informative References">
+
+    <reference anchor="stayrtr" target="https://github.com/bgp/stayrtr">
+      <front>
+        <title>StayRTR</title>
+        <author fullname="Ben Cartwright-Cox">
+          <organization>Port 179 Ltd</organization>
+        </author>
+        <date month="February" year="2023" />
+      </front>
+    </reference>
+
+  </references>
+
+  <section title="Implementation status - RFC EDITOR: REMOVE BEFORE PUBLICATION">
+    <t>
+      This section records the status of known implementations of the protocol defined by this specification at the time of posting of this Internet-Draft, and is based on a proposal described in RFC 7942.
+      The description of implementations in this section is intended to assist the IETF in its decision processes in progressing drafts to RFCs.
+      Please note that the listing of any individual implementation here does not imply endorsement by the IETF.
+      Furthermore, no effort has been spent to verify the information presented here that was supplied by IETF contributors.
+      This is not intended as, and must not be construed to be, a catalog of available implementations or their features.
+      Readers are advised to note that other implementations may exist.
+    </t>
+
+    <t>
+      According to RFC 7942, "this will allow reviewers and working groups to assign due consideration to documents that have the benefit of running code, which may serve as evidence of valuable experimentation and feedback that have made the implemented protocols more mature.
+      It is up to the individual working groups to use this information as they see fit".
+    </t>
+
+    <t>
+      <list style="symbols">
+        <t>
+          StayRTR <xref target="stayrtr"/>
+        </t>
+      </list>
+    </t>
+  </section>
+
+</back>
+
+</rfc>
