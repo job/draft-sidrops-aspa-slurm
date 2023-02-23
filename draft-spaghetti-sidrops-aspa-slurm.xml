@@ -175,7 +175,7 @@
     <section title="Locally Added ASPA Assertions" anchor="aspaAssertions">
       <t>
         Each RP is locally configured with a (possibly empty) array of ASPA Assertions.
-        Each ASPA Assertion MUST contain an Customer ASID and (possibly empty) 'provider_set' array of numbers.
+        Each ASPA Assertion MUST contain a 'customer_asid' member containing the Customer ASID and a 'provider_set' array of numbers, reflecting the set of Provider ASNs.
         It is RECOMMENDED that an explanatory comment is also included so that it can be shown to users of the RP software.
       </t>
       <t>
@@ -186,6 +186,7 @@
         <li>An "customer_asid" member whose value is a number.</li>
         <li>An "afi" member whose value is a string, whose content is either "ipv4" or "ipv6".</li>
         <li>A "provider_set" member whose value is an array of numbers.</li>
+        <li>An optional "comment" member whose value is a string.</li>
       </ul>
       <t>
         The following example JSON structure represents a "aspaAssertions" member with one object as described above:
