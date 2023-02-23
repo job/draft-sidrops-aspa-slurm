@@ -72,7 +72,7 @@
 </front>
 
 <middle>
- 
+
   <section title="Introduction">
 
     <t>
@@ -132,17 +132,17 @@
   </section>
 
   <section title="Validation Output Filters for ASPA">
-    <t>
-      ...
-    </t>
 
-    <section title="ASPA Assertion Filters" anchor="aspaFilters">
+    <section title="Validated ASPA Filters" anchor="aspaFilters">
       <t>
-        ...
+        The RP can configure zero or more Validated ASPA Filters ("ASPA Filters" for short.
+        Each ASPA Filter can contain a single 'customer_asid' and optionally a single 'comment'.
+        The 'customer_asid' member has as value a number.
+        It is RECOMMENDED that an explanatory comment is included with each ASPA Filter so that it can be shown to users of the RP software.
       </t>
     </section>
 
-    <section title="ASPA Assertions" anchor="aspaAssertions">
+    <section title="Locally Added ASPA Assertions" anchor="aspaAssertions">
       <t>
         ...
       </t>
@@ -258,7 +258,7 @@
     <?rfc include="reference.RFC.2119.xml"?>
     <?rfc include="reference.RFC.8174.xml"?>
     <?rfc include="reference.RFC.8416.xml"?>
-    
+ 
   </references>
 
   <references title="Informative References">
