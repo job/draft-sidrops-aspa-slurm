@@ -238,12 +238,12 @@
         "comment": "All keys for ASN"
       },
       {
-        "SKI": "voibVdC3Nzl9dcSfSFuFj6mK0R8=",
+        "SKI": "voibVdC3Nzl9dcSfSFuFj6mK0R8",
         "comment": "Key matching Router SKI"
       },
       {
         "asn": 64497,
-        "SKI": "UQ9IXSminbe1FfnEePjtPLeqfSM=",
+        "SKI": "UQ9IXSminbe1FfnEePjtPLeqfSM",
         "comment": "Key for ASN 64497 matching Router SKI"
       }
     ],
@@ -273,8 +273,8 @@
       {
         "asn": 64496,
         "comment" : "My known key for my important ASN",
-        "SKI": "XUJQ4tgdREjYop786R0p/wdeyeI=",
-        "routerPublicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEgFcjQ/g//LAQerAH2Mpp+GucoDAGBbhIqD33wNPsXxnAGb+mtZ7XQrVO9DQ6UlAShtig5+QfEKpTtFgiqfiAFQ=="
+        "SKI": "XUJQ4tgdREjYop786R0p/wdeyeI",
+        "routerPublicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEgFcjQ/g//LAQerAH2Mpp+GucoDAGBbhIqD33wNPsXxnAGb+mtZ7XQrVO9DQ6UlAShtig5+QfEKpTtFgiqfiAFQ"
       }
     ],
     "aspaAssertions": [
