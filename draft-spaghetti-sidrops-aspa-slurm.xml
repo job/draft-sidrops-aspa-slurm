@@ -10,7 +10,7 @@
 
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude"
   category="std"
-  docName="draft-spaghetti-sidrops-aspa-slurm-00"
+  docName="draft-spaghetti-sidrops-aspa-slurm-01"
   updates="8416"
   ipr="trust200902"
   submissionType="IETF"
@@ -139,11 +139,14 @@
     <section title="Validated ASPA Filters" anchor="aspaFilters">
       <t>
         The RP can configure zero or more Validated ASPA Filters ("ASPA Filters" for short.
-        Each ASPA Filter contains a single 'customer_asid', a single 'afi',  and optionally a single 'comment'.
+        Each ASPA Filter contains a single 'customerAsid', optionally a single 'afiLimit', and optionally a single 'comment'.
       </t>
       <ul>
-        <li>The 'customer_asid' member has as value a number.</li>
-        <li>The 'afi' member has as value a string which is either "ipv4" or "ipv6".</li>
+        <li>The 'customerAsid' member has as value a number.</li>
+        <li>
+          The optional 'afiLimit' member has as value a string which is either "ipv4" or "ipv6".
+          If the optional 'afiLimit' member has not been specified the ASPA filter applies to both the IPv4 and IPv6 AFIs.
+        </li>
         <li>It is RECOMMENDED that an explanatory comment is included with each ASPA Filter so that it can be shown to users of the RP software.</li>
       </ul>
       <t>
@@ -162,8 +165,7 @@
 <![CDATA[
 "aspaFilter": [
   {
-    "customer_asid": 64496,
-    "afi": "ipv6",
+    "customerAsid": 64496,
     "comment": "Ignore ASPA(s) that have 64496 as Customer ASID"
   }
 ]
@@ -175,7 +177,7 @@
     <section title="Locally Added ASPA Assertions" anchor="aspaAssertions">
       <t>
         Each RP is locally configured with a (possibly empty) array of ASPA Assertions.
-        Each ASPA Assertion MUST contain a 'customer_asid' member containing the Customer ASID and a 'provider_set' array of numbers, reflecting the set of Provider ASNs.
+        Each ASPA Assertion MUST contain a 'customerAsid' member containing the Customer ASID and a 'providerSet' array of numbers, reflecting the set of Provider ASNs.
         It is RECOMMENDED that an explanatory comment is also included so that it can be shown to users of the RP software.
       </t>
       <t>
@@ -183,9 +185,9 @@
         Each object MUST contain one each of all of the following members:
       </t>
       <ul>
-        <li>An "customer_asid" member whose value is a number.</li>
-        <li>An "afi" member whose value is a string, whose content is either "ipv4" or "ipv6".</li>
-        <li>A "provider_set" member whose value is an array of numbers.</li>
+        <li>An "customerAsid" member whose value is a number.</li>
+        <li>An optional "afiLimit" member whose value is a string, whose content is either "ipv4" or "ipv6".</li>
+        <li>A "providerSet" member whose value is an array of numbers.</li>
         <li>An optional "comment" member whose value is a string.</li>
       </ul>
       <t>
@@ -195,17 +197,18 @@
 <![CDATA[
 "aspaAssertions": [
   {
-    "customer_asid": 64496,
-    "afi": "ipv6",
-    "provider_set": [64497, 64498],
+    "customerAsid": 64496,
+    "afiLimit": "ipv6",
+    "providerSet": [64497, 64498],
     "comment": "pretend 64497 are 64498 are providers to 64496 for IPv6 routes"
   }
 ]
 ]]>
       </artwork></figure>
       <t>
-        Note that a "aspaAssertions" member matches the syntax of the Router Key PDU described in Section 5.12 of <xref target="I-D.ietf-sidrops-8210bis"/>.
-        Relying Parties MUST add any "aspaAssertions" member thus found to the set of Router Key PDUs, excluding duplicates, when using version 2 of the RPKI-Router protocol <xref target="I-D.ietf-sidrops-8210bis"/>.
+        Note that an "aspaAssertions" member matches the syntax of the ASPA PDU described in Section 5.12 of <xref target="I-D.ietf-sidrops-8210bis"/>.
+        Relying Parties MUST add any "aspaAssertions" member thus found to the set of ASPA PDUs, excluding duplicates, when using version 2 of the RPKI-Router protocol <xref target="I-D.ietf-sidrops-8210bis"/>.
+        An "aspaAssertions" does not act as an implicit filter.
       </t>
     </section>
 
@@ -250,9 +253,8 @@
     ],
     "aspaFilters": [
       {
-        "customer_asid": 64496,
-        "afi": "ipv6",
-        "comment": "ASPAs matching Customer ASID"
+        "customerAsid": 64496,
+        "comment": "ASPAs matching Customer ASID 64496"
       }
     ]
   },
@@ -280,10 +282,10 @@
     ],
     "aspaAssertions": [
       {
-        "customer_asid": 64496,
-        "afi": "ipv6",
-        "provider_set": [64497, 64498],
-        "comment": "Pretend 64497 and 64498 are upstream for 64496 in the IPv6 AFI"
+        "customerAsid": 64496,
+        "afiLimit": "ipv6",
+        "providerSet": [64497, 64498],
+        "comment": "Pretend 64497 and 64498 are upstream for 64496 in the IPv6 AFI (not IPv4)"
       }
     ]
   }
@@ -307,7 +309,7 @@
   <section title="Acknowledgements">
     <t>
       The authors would like to thank
-      TBD
+      <contact fullname="Tim Bruijnzeels"/>
       for their helpful review of this document.
     </t>
   </section>
@@ -361,6 +363,7 @@
         </t>
       </list>
     </t>
+
   </section>
 
 </back>
