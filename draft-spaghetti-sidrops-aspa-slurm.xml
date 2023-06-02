@@ -139,14 +139,10 @@
     <section title="Validated ASPA Filters" anchor="aspaFilters">
       <t>
         The RP can configure zero or more Validated ASPA Filters ("ASPA Filters" for short.
-        Each ASPA Filter contains a single 'customerAsid', optionally a single 'afiLimit', and optionally a single 'comment'.
+        Each ASPA Filter contains a single 'customerAsid' and optionally a single 'comment'.
       </t>
       <ul>
         <li>The 'customerAsid' member has as value a number.</li>
-        <li>
-          The optional 'afiLimit' member has as value a string which is either "ipv4" or "ipv6".
-          If the optional 'afiLimit' member has not been specified the ASPA filter applies to both the IPv4 and IPv6 AFIs.
-        </li>
         <li>It is RECOMMENDED that an explanatory comment is included with each ASPA Filter so that it can be shown to users of the RP software.</li>
       </ul>
       <t>
@@ -186,7 +182,6 @@
       </t>
       <ul>
         <li>An "customerAsid" member whose value is a number.</li>
-        <li>An optional "afiLimit" member whose value is a string, whose content is either "ipv4" or "ipv6".</li>
         <li>A "providerSet" member whose value is an array of numbers.</li>
         <li>An optional "comment" member whose value is a string.</li>
       </ul>
@@ -198,9 +193,8 @@
 "aspaAssertions": [
   {
     "customerAsid": 64496,
-    "afiLimit": "ipv6",
     "providerSet": [64497, 64498],
-    "comment": "pretend 64497 are 64498 are providers to 64496 for IPv6 routes"
+    "comment": "pretend 64497 are 64498 are providers to 64496"
   }
 ]
 ]]>
@@ -283,9 +277,8 @@
     "aspaAssertions": [
       {
         "customerAsid": 64496,
-        "afiLimit": "ipv6",
         "providerSet": [64497, 64498],
-        "comment": "Pretend 64497 and 64498 are upstream for 64496 in the IPv6 AFI (not IPv4)"
+        "comment": "Pretend 64497 and 64498 are upstream for 64496"
       }
     ]
   }
