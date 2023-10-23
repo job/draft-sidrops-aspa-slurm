@@ -10,7 +10,7 @@
 
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude"
   category="std"
-  docName="draft-spaghetti-sidrops-aspa-slurm-01"
+  docName="draft-spaghetti-sidrops-aspa-slurm-02"
   updates="8416"
   ipr="trust200902"
   submissionType="IETF"
@@ -47,17 +47,16 @@
   </author>
   <date />
 
-  <area>RPKI</area>
+  <area>OPS</area>
   <workgroup>SIDROPS</workgroup>
-  <keyword>BGPsec</keyword>
+
   <keyword>ASPA</keyword>
-  <keyword>RPKI-ROV</keyword>
   <keyword>EBGP</keyword>
 
   <abstract>
 
     <t>
-      ISPs may want to establish a local view of exceptions to the Resource Public Key Infrastructure (RPKI) data in the form of local filters and additions.
+      ISPs may want to establish a local view of exceptions to the Resource Public Key Infrastructure (RPKI) data in the form of local filters or additional attestations.
       This document defines an addendum to RFC 8416 by specifying a format for local filters and local assertions for Autonomous System Provider Authorizations (ASPA) for use with the RPKI.
     </t>
 
@@ -76,7 +75,7 @@
   <section title="Introduction">
 
     <t>
-      ISPs may want to establish a local view of exceptions to the Resource Public Key Infrastructure (RPKI) data in the form of local filters and additions.
+      ISPs may want to establish a local view of exceptions to the Resource Public Key Infrastructure (RPKI) data in the form of local filters or additional attestations.
       This document defines an addendum to RFC 8416 by specifying a format for local filters and local assertions for Autonomous System Provider Authorizations (ASPA) for use with the RPKI.
     </t>
 
@@ -138,7 +137,7 @@
 
     <section title="Validated ASPA Filters" anchor="aspaFilters">
       <t>
-        The RP can configure zero or more Validated ASPA Filters ("ASPA Filters" for short.
+        The RP can configure zero or more Validated ASPA Filters ("ASPA Filters" for short).
         Each ASPA Filter contains a single 'customerAsid' and optionally a single 'comment'.
       </t>
       <ul>
@@ -162,7 +161,7 @@
 "aspaFilter": [
   {
     "customerAsid": 64496,
-    "comment": "Ignore ASPA(s) that have 64496 as Customer ASID"
+    "comment": "Filter out ASPA Payloads which specify AS 64496 as the Customer ASID"
   }
 ]
 ]]>
@@ -194,7 +193,7 @@
   {
     "customerAsid": 64496,
     "providerSet": [64497, 64498],
-    "comment": "pretend 64497 are 64498 are providers to 64496"
+    "comment": "Locally assert 64497 are 64498 are providers to 64496"
   }
 ]
 ]]>
@@ -278,7 +277,7 @@
       {
         "customerAsid": 64496,
         "providerSet": [64497, 64498],
-        "comment": "Pretend 64497 and 64498 are upstream for 64496"
+        "comment": "Locally assert 64497 and 64498 are providers for 64496"
       }
     ]
   }
@@ -328,7 +327,7 @@
         <author fullname="Ben Cartwright-Cox">
           <organization>Port 179 Ltd</organization>
         </author>
-        <date month="February" year="2023" />
+        <date year="2023" />
       </front>
     </reference>
 
