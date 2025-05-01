@@ -138,11 +138,11 @@
     <section title="Validated ASPA Filters" anchor="aspaFilters">
       <t>
         The RP can configure zero or more Validated ASPA Filters ("ASPA Filters" for short).
-        Each ASPA Filter contains a single 'customerAsid' and optionally a single 'comment'.
+        Each ASPA Filter contains a single 'customerASID' and optionally a single 'comment'.
       </t>
       <ul>
-        <li>The 'customerAsid' member has as value a number.</li>
-        <li>It is RECOMMENDED that an explanatory comment is included with each ASPA Filter so that it can be shown to users of the RP software.</li>
+        <li>The 'customerASID' field contains the AS number of the Customer Autonomous System that is the authorizing entity.</li>
+        <li>It is RECOMMENDED that an explanatory comment be included with each ASPA Filter so that it can be shown to users of the RP software.</li>
       </ul>
       <t>
         Any Validated ASPA Payload (VAP) <xref target="I-D.ietf-sidrops-aspa-profile"/> that matches any configured ASPA Filter MUST be removed from the RP's output.
@@ -160,7 +160,7 @@
 <![CDATA[
 "aspaFilter": [
   {
-    "customerAsid": 64496,
+    "customerASID": 64496,
     "comment": "Filter out ASPA Payloads which specify AS 64496 as the Customer ASID"
   }
 ]
@@ -172,17 +172,25 @@
     <section title="Locally Added ASPA Assertions" anchor="aspaAssertions">
       <t>
         Each RP is locally configured with a (possibly empty) array of ASPA Assertions.
-        Each ASPA Assertion MUST contain a 'customerAsid' member containing the Customer ASID and a 'providerSet' array of numbers, reflecting the set of Provider ASNs.
-        It is RECOMMENDED that an explanatory comment is also included so that it can be shown to users of the RP software.
+        Each ASPA Assertion MUST contain a 'customerASID' member containing the Customer ASID and a 'providerSet' array of numbers, reflecting the set of Provider ASNs.
+        It is RECOMMENDED that an explanatory comment be included that may be shown to users of the RP software.
       </t>
       <t>
         The above is expressed as a value of the "aspaAssertions" member, as an array of zero or more objects.
         Each object MUST contain one each of all of the following members:
       </t>
       <ul>
-        <li>An "customerAsid" member whose value is a number.</li>
+        <li>A "customerASID" member whose value is a number.</li>
         <li>A "providerSet" member whose value is an array of numbers.</li>
         <li>An optional "comment" member whose value is a string.</li>
+      </ul>
+      <t>
+        In addition to the constraints described by the formal ASN.1 definition, the contents of the providerSet field MUST satisfy the following constraints:
+      </t>
+      <ul>
+        <li>The customerASID value MUST NOT appear in any ASID in the providerSet field.</li>
+        <li>The elements of providerSet MUST be ordered in ascending numerical order.</li>
+        <li>Each value of ASID MUST be unique (with respect to the other elements of providers).</li>
       </ul>
       <t>
         The following example JSON structure represents a "aspaAssertions" member with one object as described above:
@@ -191,7 +199,7 @@
 <![CDATA[
 "aspaAssertions": [
   {
-    "customerAsid": 64496,
+    "customerASID": 64496,
     "providerSet": [64497, 64498],
     "comment": "Locally assert 64497 are 64498 are providers to 64496"
   }
@@ -246,7 +254,7 @@
     ],
     "aspaFilters": [
       {
-        "customerAsid": 64496,
+        "customerASID": 64496,
         "comment": "ASPAs matching Customer ASID 64496"
       }
     ]
@@ -275,7 +283,7 @@
     ],
     "aspaAssertions": [
       {
-        "customerAsid": 64496,
+        "customerASID": 64496,
         "providerSet": [64497, 64498],
         "comment": "Locally assert 64497 and 64498 are providers for 64496"
       }
