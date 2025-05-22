@@ -21,15 +21,12 @@
   <title abbrev="SLURM for RPKI ASPA">Simplified Local Internet Number Resource Management (SLURM) with RPKI Autonomous System Provider Authorizations (ASPA)</title>
 
   <author fullname="Job Snijders" initials="J." surname="Snijders">
-    <organization>Fastly</organization>
     <address>
       <postal>
-        <street />
         <city>Amsterdam</city>
-        <code />
         <country>Netherlands</country>
       </postal>
-      <email>job@fastly.com</email>
+      <email>job@sobornost.net</email>
     </address>
   </author>
 
