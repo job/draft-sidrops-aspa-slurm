@@ -187,7 +187,7 @@
       <ul>
         <li>The customerAsn value MUST NOT appear in any ASN in the providerAsns field.</li>
         <li>The elements of providerAsns MUST be ordered in ascending numerical order.</li>
-        <li>Each value of ASN MUST be unique (with respect to the other elements of providers).</li>
+        <li>Each value of ASN MUST be unique (with respect to the other elements of providerAsns).</li>
       </ul>
       <t>
         The following example JSON structure represents a "aspaAssertions" member with one object as described above:
