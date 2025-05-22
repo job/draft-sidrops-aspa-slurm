@@ -134,7 +134,7 @@
 
     <section title="Validated ASPA Filters" anchor="aspaFilters">
       <t>
-        The RP can configure zero or more Validated ASPA Filters ("ASPA Filters" for short).
+        The Relying Party (RP) can configure zero or more Validated ASPA Filters ("ASPA Filters" for short).
         Each ASPA Filter contains a single 'customerAsn' and optionally a single 'comment'.
       </t>
       <ul>
