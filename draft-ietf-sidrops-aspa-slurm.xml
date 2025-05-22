@@ -10,7 +10,7 @@
 
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude"
   category="std"
-  docName="draft-ietf-sidrops-aspa-slurm-00"
+  docName="draft-ietf-sidrops-aspa-slurm-01"
   updates="8416"
   ipr="trust200902"
   submissionType="IETF"
@@ -310,7 +310,9 @@
     <t>
       The authors would like to thank
       <contact fullname="Tim Bruijnzeels"/>
-      for their helpful review of this document.
+      <contact fullname="Mike Hollyman"/>,
+      <contact fullname="Koen van Hove"/>
+      for their helpful review and contributions to this document.
     </t>
   </section>
 
