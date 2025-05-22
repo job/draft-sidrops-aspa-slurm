@@ -197,7 +197,7 @@
 "aspaAssertions": [
   {
     "customerAsn": 64496,
-    "providerSet": [64497, 64498],
+    "providerAsns": [64497, 64498],
     "comment": "Locally assert 64497 are 64498 are providers to 64496"
   }
 ]
@@ -281,7 +281,7 @@
     "aspaAssertions": [
       {
         "customerAsn": 64496,
-        "providerSet": [64497, 64498],
+        "providerAsns": [64497, 64498],
         "comment": "Locally assert 64497 and 64498 are providers for 64496"
       }
     ]
