@@ -1,6 +1,6 @@
-NAME=draft-spaghetti-sidrops-aspa-slurm
+NAME=draft-ietf-sidrops-aspa-slurm
 
-LAST_UPLOADED=00
+LAST_UPLOADED=02
 
 all: $(NAME).xml
 	xml2rfc $(NAME).xml --html --text
