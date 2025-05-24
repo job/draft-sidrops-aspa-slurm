@@ -328,6 +328,17 @@
 
   <references title="Informative References">
 
+    <reference anchor="Routinator" target="https://github.com/NLnetLabs/routinator">
+      <front>
+        <title>Routinator</title>
+        <author>
+          <organization>NLNet Labs</organization>
+        </author>
+        <date month="May" year="2025"/>
+      </front>
+    </reference>
+
+<!--
     <reference anchor="stayrtr" target="https://github.com/bgp/stayrtr">
       <front>
         <title>StayRTR</title>
@@ -337,6 +348,7 @@
         <date year="2023" />
       </front>
     </reference>
+-->
 
   </references>
 
@@ -358,7 +370,7 @@
     <t>
       <list style="symbols">
         <t>
-          StayRTR <xref target="stayrtr"/>
+          <xref target="Routinator"/>
         </t>
       </list>
     </t>
