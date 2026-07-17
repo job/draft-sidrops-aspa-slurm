@@ -274,7 +274,7 @@
       {
         "asn": 64496,
         "comment" : "My known key for my important ASN",
-        "SKI": "XUJQ4tgdREjYop786R0p/wdeyeI",
+        "SKI": "XUJQ4tgdREjYop786R0p_wdeyeI",
         "routerPublicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEgFcjQ/g//LAQerAH2Mpp+GucoDAGBbhIqD33wNPsXxnAGb+mtZ7XQrVO9DQ6UlAShtig5+QfEKpTtFgiqfiAFQ"
       }
     ],
